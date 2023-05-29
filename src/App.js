@@ -13,8 +13,19 @@ import Product from "./pages/Products";
 import Success from "./pages/Success";
 import Search from "./pages/Search";
 import Page404 from "./pages/Page404";
+import React, { useEffect } from "react";
+
+import { getCategories } from "./services/Api";
 
 function App() {
+
+  //Danh mục sản phẩm
+  const[categories, setCategories] = React.useState([]);
+
+  useEffect( () => {
+    getCategories({}).then(({data}) => setCategories(data.data.docs));
+  }, [])
+
   return (
     <BrowserRouter>
       <div>
@@ -24,7 +35,9 @@ function App() {
           <div className="container">
             <div className="row">
               <div className="col-lg-12 col-md-12 col-sm-12">
-                <Menu/>
+                <Menu
+                  categories={categories}
+                />
               </div>
             </div>
             <div className="row">
@@ -34,7 +47,7 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Home/>} />
                   <Route path="/Cart" element={<Cart/>} />
-                  <Route path="/Category" element={<Category/>} />
+                  <Route path="/Category-:id" element={<Category/>} />
                   <Route path="/Product" element={<Product/>} />
                   <Route path="/Success" element={<Success/>} />
                   <Route path="/Search" element={<Search/>} />
