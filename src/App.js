@@ -8,23 +8,24 @@ import Footer from "./shared/components/layouts/Footer";
 
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
+
 import Category from "./pages/Category";
-import Product from "./pages/Products";
+import ProductDetails from "./pages/ProductDetails";
 import Success from "./pages/Success";
 import Search from "./pages/Search";
 import Page404 from "./pages/Page404";
-import React, { useEffect } from "react";
 
 import { getCategories } from "./services/Api";
+import React, { useEffect } from "react";
 
 function App() {
 
-  //Danh mục sản phẩm
-  const[categories, setCategories] = React.useState([]);
+  //Tạo state để lưu data đổ ra 
+  const [categories, setCategories] = React.useState([]);
 
   useEffect( () => {
-    getCategories({}).then(({data}) => setCategories(data.data.docs));
-  }, [])
+    getCategories({}).then(({data}) => setCategories(data.data.docs) )
+  },[]) 
 
   return (
     <BrowserRouter>
@@ -35,8 +36,8 @@ function App() {
           <div className="container">
             <div className="row">
               <div className="col-lg-12 col-md-12 col-sm-12">
-                <Menu
-                  categories={categories}
+                <Menu 
+                  categories = {categories}
                 />
               </div>
             </div>
@@ -48,11 +49,12 @@ function App() {
                   <Route path="/" element={<Home/>} />
                   <Route path="/Cart" element={<Cart/>} />
                   <Route path="/Category-:id" element={<Category/>} />
-                  <Route path="/Product" element={<Product/>} />
+                  <Route path="/ProductDetails-:id" element={<ProductDetails/>} />
                   <Route path="/Success" element={<Success/>} />
                   <Route path="/Search" element={<Search/>} />
                   <Route path="*" element={<Page404/>} />
                 </Routes>
+
               </div>
 
               <Sidebar />
@@ -62,6 +64,7 @@ function App() {
         {/*	End Body	*/}
         <Footer />
       </div>
+
     </BrowserRouter>
   );
 }

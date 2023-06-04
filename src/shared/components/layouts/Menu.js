@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Menu = ({ categories }) => {
+const Menu = ({categories}) => {
 
     return (
         <>
@@ -8,8 +8,8 @@ const Menu = ({ categories }) => {
                 <div id="menu" className="collapse navbar-collapse">
                     <ul>
                         {
-                            categories.map((category) =>
-                                <li className="menu-item"><Link to={`/category-${category._id}`}>{category.name}</Link></li>
+                            categories.map((category, index) => 
+                            <li className="menu-item" key={index}><Link to={`/Category-${category._id}`}>{category.name}</Link></li>
                             )
                         }
                     </ul>

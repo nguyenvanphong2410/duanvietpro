@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useEffect } from "react";
 import { getProducts } from "../../services/Api";
 import ProductItem from "../../shared/components/product-item";
 
@@ -6,25 +7,21 @@ const Home = () => {
 
     const [featureProducts, setFeatureProducts] = React.useState([]);
     const [latestProducts, setLatestProducts] = React.useState([]);
-
+    
     useEffect(() => {
-
-        //Lấy FeatureProducts / sản phẩm nổi bật
         getProducts({
             params: {
                 limit: 6,
-                "filter[is_featured]": true,
+                "filter[is_featured]": true
             }
-        }).then(({ data }) => setFeatureProducts(data.data.docs));
+        }).then(({data}) => setFeatureProducts(data.data.docs))
 
-        //Lấy LatestProducts / sản phẩm nổi bật
         getProducts({
             params: {
                 limit: 6,
             }
-        }).then(({ data }) => setLatestProducts(data.data.docs));
-
-    }, [])
+        }).then(({data}) => setLatestProducts(data.data.docs))
+    },[])
 
     return (
         <>
@@ -33,25 +30,27 @@ const Home = () => {
                 <h3>Sản phẩm nổi bật</h3>
                 <div className="product-list card-deck">
                     {
-                        featureProducts.map((item, index) =>
+                        featureProducts.map((value, index) => 
+                        
                             <ProductItem
-                                item={item}
+                                item={value}
+                                key={index}
                             />
                         )
                     }
-
                 </div>
             </div>
             {/*	End Feature Product	*/}
-            
             {/*	Latest Product	*/}
             <div className="products">
                 <h3>Sản phẩm mới</h3>
                 <div className="product-list card-deck">
-                    {
-                        latestProducts.map((item, index) =>
+                {
+                        latestProducts.map((value, index) => 
+                        
                             <ProductItem
-                                item={item}
+                                item={value}
+                                key={index}
                             />
                         )
                     }
